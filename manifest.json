@@ -1,0 +1,47 @@
+{
+    "name": "Librus Wiadomości",
+    "short_name": "Librus MSG",
+    "description": "Przeglądaj wiadomości z Librus Synergia na swoim telefonie",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#1a73e8",
+    "orientation": "portrait-primary",
+    "scope": "/",
+    "lang": "pl-PL",
+    "categories": ["education", "productivity"],
+
+    "shortcuts": [
+        {
+            "name": "Odebrane",
+            "short_name": "Odebrane",
+            "description": "Otwórz odebrane wiadomości",
+            "url": "/?folder=received",
+            "icons": [{ "src": "icons/inbox.png", "sizes": "96x96" }]
+        },
+        {
+            "name": "Wysłane",
+            "short_name": "Wysłane",
+            "description": "Otwórz wysłane wiadomości",
+            "url": "/?folder=sent",
+            "icons": [{ "src": "icons/sent.png", "sizes": "96x96" }]
+        }
+    ],
+
+    "screenshots": [
+        {
+            "src": "screenshots/login.png",
+            "sizes": "390x844",
+            "type": "image/png",
+            "form_factor": "narrow",
+            "label": "Ekran logowania"
+        },
+        {
+            "src": "screenshots/messages.png",
+            "sizes": "390x844",
+            "type": "image/png",
+            "form_factor": "narrow",
+            "label": "Lista wiadomości"
+        }
+    ]
+}
