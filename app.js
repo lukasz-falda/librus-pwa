@@ -333,6 +333,24 @@ const storage = {
     clearCache() {
         localStorage.removeItem(CONFIG.STORAGE_KEYS.MESSAGES_CACHE);
         localStorage.removeItem(CONFIG.STORAGE_KEYS.LAST_FETCH);
+    },
+
+    // Oznaczanie wiadomości jako przeczytanej
+    markAsRead: (messageId) => {
+        const read = storage.getReadMessages();
+        read.add(String(messageId));
+        localStorage.setItem(CONFIG.STORAGE_KEYS.READ_MESSAGES, JSON.stringify([...read]));
+    },
+
+    // Pobieranie listy przeczytanych wiadomości
+    getReadMessages: () => {
+        const data = localStorage.getItem(CONFIG.STORAGE_KEYS.READ_MESSAGES);
+        return new Set(data ? JSON.parse(data) : []);
+    },
+
+    // Sprawdzanie czy wiadomość jest przeczytana
+    isMessageRead: (messageId) => {
+        return storage.getReadMessages().has(String(messageId));
     }
 };
 
@@ -404,8 +422,10 @@ const ui = {
         elements.emptyState.classList.add('hidden');
 
         messages.forEach(msg => {
+            const isRead = storage.isMessageRead(msg.id) || msg.read;
+
             const item = document.createElement('div');
-            item.className = `message-item ${msg.isRead ? '' : 'unread'}`;
+            item.className = `message-item ${isRead ? '' : 'unread'}`;
             item.dataset.id = msg.id;
 
             item.innerHTML = `
@@ -453,6 +473,8 @@ const ui = {
         elements.messageDetailLoader.classList.add('hidden');
         elements.messageDetail.style.display = 'block';
 
+        // Oznacz jako przeczytaną
+        storage.markAsRead(message.id);
     },
 
     /**
